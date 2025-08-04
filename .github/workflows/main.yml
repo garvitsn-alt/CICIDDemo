@@ -3,7 +3,7 @@ name: Selenium Test workflow demo
 on: [push]
 
 jobs:
-  Selenium_Job:
+  Selenium_Job1:
     runs-on: ubuntu-latest
     steps:
       - run: echo "This is me testing workflow"
