@@ -1,8 +1,33 @@
-name: GitHub Actions Demo
-#run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+name: Selenium Test Workflow
+
 on: [push]
+
 jobs:
-  Explore-GitHub-Actions:
+  run-selenium-tests:
     runs-on: ubuntu-latest
+    name: Run NUnit + SpecFlow + Selenium Tests
+
     steps:
-      - run: echo "🎉 This is me testing workflows"
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🛠 Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x' # Change based on your project version
+
+      - name: 📦 Restore NuGet packages
+        run: dotnet restore
+
+      - name: 🏗 Build the solution
+        run: dotnet build --configuration Release
+
+      - name: 🧪 Run tests (with NUnit and CLI)
+        run: dotnet test --no-build --configuration Release --logger "trx"
+
+      - name: 📤 Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: '**/TestResults/*.trx'
