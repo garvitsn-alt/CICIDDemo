@@ -1,9 +1,9 @@
-name: Selenium Test workflow demo
 
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
-
 jobs:
-  Selenium_Job1:
+  Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "This is me testing workflow"
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
